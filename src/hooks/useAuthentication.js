@@ -69,6 +69,22 @@ export const useAuthentication = () => {
     signOut(auth);
   };
 
+  //login - sign in
+  const login = async (data) => {
+    checkIfIsCancelled();
+
+    setLoading(true);
+    setError(false);
+
+    try {
+      await signInWithEmailAndPassword(auth, data.email, data.password);
+      setLoading(false);
+    } catch (error) {
+      setError("Usuário ou senha incorretos!");
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     return () => setCancelled(true);
   }, []);
@@ -79,5 +95,6 @@ export const useAuthentication = () => {
     error,
     loading,
     logout,
+    login,
   };
 };
