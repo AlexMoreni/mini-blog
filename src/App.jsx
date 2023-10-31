@@ -6,6 +6,14 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import { onAuthStateChanged } from "firebase/auth";
+
+//hooks
+import { useState, useEffect } from "react";
+import { useAuthentication } from "./hooks/useAuthentication";
+
+//context
+import { AuthProvider } from "./context/AuthContext.jsx";
 
 //Pages
 import Home from "./pages/Home/Home.jsx";
@@ -18,19 +26,36 @@ import Navbar from "./components/Navbar.jsx";
 import Footer from "./components/Footer.jsx";
 
 function App() {
+  const [user, setUser] = useState(undefined);
+  const { auth } = useAuthentication();
+
+  const loadingUser = user === undefined;
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      setUser(user);
+    });
+  }, [auth]);
+
+  if (loadingUser) {
+    return <p>Carregando..</p>;
+  }
+
   return (
-    <Router>
-      <Navbar />
-      <div className="container">
-        <Routes>
-          <Route exact path="/" element={<Home />}></Route>
-          <Route path="/about" element={<About />}></Route>
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/register" element={<Register />}></Route>
-        </Routes>
-      </div>
-      <Footer />
-    </Router>
+    <AuthProvider value={{ user }}>
+      <Router>
+        <Navbar />
+        <div className="container">
+          <Routes>
+            <Route exact path="/" element={<Home />}></Route>
+            <Route path="/about" element={<About />}></Route>
+            <Route path="/login" element={<Login />}></Route>
+            <Route path="/register" element={<Register />}></Route>
+          </Routes>
+        </div>
+        <Footer />
+      </Router>
+    </AuthProvider>
   );
 }
 
