@@ -20,6 +20,8 @@ import Home from "./pages/Home/Home.jsx";
 import About from "./pages/About/About.jsx";
 import Login from "./pages/Login/Login.jsx";
 import Register from "./pages/Register/Register.jsx";
+import CreatePost from "./pages/CreatePost/CreatePost.jsx";
+import Dashboard from "./pages/Dashboard/Dashboard.jsx";
 
 //Components
 import Navbar from "./components/Navbar.jsx";
@@ -51,6 +53,8 @@ function App() {
             <Route path="/about" element={<About />}></Route>
             <Route path="/login" element={<Login />}></Route>
             <Route path="/register" element={<Register />}></Route>
+            <Route path="/posts/create" element={<CreatePost />}></Route>
+            <Route path="/dashboard" element={<Dashboard />}></Route>
           </Routes>
         </div>
         <Footer />
