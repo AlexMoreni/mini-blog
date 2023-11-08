@@ -23,6 +23,7 @@ import Register from "./pages/Register/Register.jsx";
 import CreatePost from "./pages/CreatePost/CreatePost.jsx";
 import Dashboard from "./pages/Dashboard/Dashboard.jsx";
 import Search from "./pages/Search/Search.jsx";
+import Post from "./pages/Post/Post.jsx";
 
 //Components
 import Navbar from "./components/Navbar.jsx";
@@ -53,6 +54,7 @@ function App() {
             <Route exact path="/" element={<Home />}></Route>
             <Route path="/about" element={<About />}></Route>
             <Route path="/search" element={<Search />}></Route>
+            <Route path="/posts/:id" element={<Post />}></Route>
             <Route
               path="/login"
               element={!user ? <Login /> : <Navigate to="/" />}
